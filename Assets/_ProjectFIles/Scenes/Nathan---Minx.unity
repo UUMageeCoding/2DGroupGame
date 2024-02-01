@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 27875775}
   - component: {fileID: 27875774}
   - component: {fileID: 27875773}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 161231934}
   - component: {fileID: 161231933}
   - component: {fileID: 161231932}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,11 +423,11 @@ Transform:
   m_GameObject: {fileID: 161231931}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 190.32431, y: -1.7081008, z: 0}
+  m_LocalPosition: {x: 91.67134, y: -11.846121, z: 1.2842513}
   m_LocalScale: {x: 6.1197, y: 7.01849, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 874318899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238230180
 GameObject:
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 238230184}
   - component: {fileID: 238230183}
   - component: {fileID: 238230182}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +599,7 @@ GameObject:
   - component: {fileID: 285701560}
   - component: {fileID: 285701559}
   - component: {fileID: 285701558}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,11 +729,11 @@ Transform:
   m_GameObject: {fileID: 285701557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 186.02, y: -2.6761003, z: 0}
+  m_LocalPosition: {x: 87.367035, y: -12.814119, z: 1.2842513}
   m_LocalScale: {x: 3.9311998, y: 4.14247, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 874318899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &358232971
 GameObject:
@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 358232975}
   - component: {fileID: 358232974}
   - component: {fileID: 358232973}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 508037731}
   - component: {fileID: 508037733}
   - component: {fileID: 508037734}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground - Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1126,7 +1126,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 4e0dc37f3cbe50e4c85720fb9d03322f, type: 2}
+  m_Material: {fileID: 6200000, guid: e28d9bd56ef8247409ab7ceb90a953ed, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1233,7 +1233,7 @@ GameObject:
   - component: {fileID: 764440046}
   - component: {fileID: 764440048}
   - component: {fileID: 764440049}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1412,7 +1412,7 @@ GameObject:
   - component: {fileID: 846716538}
   - component: {fileID: 846716540}
   - component: {fileID: 846716541}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1560,7 +1560,7 @@ GameObject:
   - component: {fileID: 861609669}
   - component: {fileID: 861609671}
   - component: {fileID: 861609672}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1705,7 +1705,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 874318899}
-  m_Layer: 0
+  - component: {fileID: 874318900}
+  m_Layer: 3
   m_Name: Rocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1737,8 +1738,40 @@ Transform:
   - {fileID: 861609670}
   - {fileID: 1993092522}
   - {fileID: 846716539}
+  - {fileID: 285701561}
+  - {fileID: 161231935}
+  - {fileID: 1934658685}
+  - {fileID: 1595938013}
+  - {fileID: 1570284402}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &874318900
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874318898}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: e28d9bd56ef8247409ab7ceb90a953ed, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &917381830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1784,7 @@ GameObject:
   - component: {fileID: 917381831}
   - component: {fileID: 917381833}
   - component: {fileID: 917381834}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1899,7 +1932,7 @@ GameObject:
   - component: {fileID: 966411114}
   - component: {fileID: 966411113}
   - component: {fileID: 966411112}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2047,7 +2080,7 @@ GameObject:
   - component: {fileID: 984004221}
   - component: {fileID: 984004223}
   - component: {fileID: 984004224}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2195,7 +2228,7 @@ GameObject:
   - component: {fileID: 1351441148}
   - component: {fileID: 1351441147}
   - component: {fileID: 1351441146}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2231,15 +2264,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1089966225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f43627d25d291a4bb9dfd49233491d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 399640024da21f242b35fe05e25ab126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 8
-  jumpingPower: 10
-  groundCheck: {fileID: 846278998}
+  jumpingPower: 16
+  groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
 --- !u!70 &1089966227
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2291,7 +2324,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 4e0dc37f3cbe50e4c85720fb9d03322f, type: 2}
+  m_Material: {fileID: 6200000, guid: e28d9bd56ef8247409ab7ceb90a953ed, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2384,7 +2417,7 @@ GameObject:
   - component: {fileID: 1153624203}
   - component: {fileID: 1153624202}
   - component: {fileID: 1153624201}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2532,7 +2565,7 @@ GameObject:
   - component: {fileID: 1168631854}
   - component: {fileID: 1168631853}
   - component: {fileID: 1168631852}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2690,7 +2723,7 @@ GameObject:
   - component: {fileID: 1180105638}
   - component: {fileID: 1180105640}
   - component: {fileID: 1180105641}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2838,7 +2871,7 @@ GameObject:
   - component: {fileID: 1314798996}
   - component: {fileID: 1314798995}
   - component: {fileID: 1314798994}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3392,7 +3425,7 @@ GameObject:
   - component: {fileID: 1372554630}
   - component: {fileID: 1372554629}
   - component: {fileID: 1372554628}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3624,7 +3657,7 @@ GameObject:
   - component: {fileID: 1570284401}
   - component: {fileID: 1570284400}
   - component: {fileID: 1570284399}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3754,11 +3787,11 @@ Transform:
   m_GameObject: {fileID: 1570284398}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 195.47, y: 0.93, z: 0}
+  m_LocalPosition: {x: 96.81703, y: -9.208019, z: 1.2842513}
   m_LocalScale: {x: 4.35145, y: 3.87974, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 874318899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1593207443
 GameObject:
@@ -3772,7 +3805,7 @@ GameObject:
   - component: {fileID: 1593207447}
   - component: {fileID: 1593207446}
   - component: {fileID: 1593207445}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3930,7 +3963,7 @@ GameObject:
   - component: {fileID: 1595938012}
   - component: {fileID: 1595938011}
   - component: {fileID: 1595938010}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4060,11 +4093,11 @@ Transform:
   m_GameObject: {fileID: 1595938009}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 196.73, y: -1.24, z: 0}
+  m_LocalPosition: {x: 98.07703, y: -11.378019, z: 1.2842513}
   m_LocalScale: {x: 4.50909, y: 3.7747998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 874318899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663639146
 GameObject:
@@ -4078,7 +4111,7 @@ GameObject:
   - component: {fileID: 1663639150}
   - component: {fileID: 1663639149}
   - component: {fileID: 1663639148}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4236,7 +4269,7 @@ GameObject:
   - component: {fileID: 1934658684}
   - component: {fileID: 1934658683}
   - component: {fileID: 1934658682}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4366,11 +4399,11 @@ Transform:
   m_GameObject: {fileID: 1934658681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.9066679, w: 0.42184517}
-  m_LocalPosition: {x: 193.8, y: -1.1000001, z: 0}
-  m_LocalScale: {x: 3.9311998, y: 4.14247, z: 1}
+  m_LocalPosition: {x: 95.14703, y: -11.23802, z: 1.2842513}
+  m_LocalScale: {x: 3.9312003, y: 4.1424704, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 874318899}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 130.098}
 --- !u!1 &1993092520
 GameObject:
@@ -4384,7 +4417,7 @@ GameObject:
   - component: {fileID: 1993092521}
   - component: {fileID: 1993092523}
   - component: {fileID: 1993092524}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4532,7 +4565,7 @@ GameObject:
   - component: {fileID: 2029476401}
   - component: {fileID: 2029476400}
   - component: {fileID: 2029476399}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4687,7 +4720,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2029686165}
-  m_Layer: 0
+  - component: {fileID: 2029686166}
+  m_Layer: 3
   m_Name: Main Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4717,6 +4751,33 @@ Transform:
   - {fileID: 1168631851}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2029686166
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029686164}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: e28d9bd56ef8247409ab7ceb90a953ed, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2077223123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4729,7 +4790,7 @@ GameObject:
   - component: {fileID: 2077223127}
   - component: {fileID: 2077223126}
   - component: {fileID: 2077223125}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Rock (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4874,8 +4935,3 @@ SceneRoots:
   - {fileID: 874318899}
   - {fileID: 649642636}
   - {fileID: 420333043}
-  - {fileID: 285701561}
-  - {fileID: 161231935}
-  - {fileID: 1934658685}
-  - {fileID: 1595938013}
-  - {fileID: 1570284402}
