@@ -19,67 +19,79 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private bool countJump;
+    [SerializeField] private GameObject chute;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.drag = 1;
+        playerSpeed = 5;
         animator = GetComponent<Animator>();
+        chute.SetActive(false);
     }
     void Update()
     {
 
 
             horizontal = Input.GetAxisRaw("Horizontal");
-        
-            if (Input.GetButtonDown("Jump") && IsGrounded())
-            {
-                //Debug.Log("Jump");
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-                //animator.SetBool("IsJump", true);
-                countJump = true;
-                Debug.Log(countJump);
 
-            }
+        if (Input.GetButtonDown("Jump") && IsGrounded() && countJump == false)
+        {
+            Debug.Log("Jump");
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            //animator.SetBool("IsJump", true);
+            countJump = true;
 
-            /*
-            if (!Input.GetButton("Jump") && IsGrounded())
-            {
-                //Debug.Log("Landed");
-                animator.SetBool("IsJump", false);
-            }
+        }
 
-            if (Input.GetButton("Horizontal") && IsGrounded())
-            {
-                //Debug.Log("Moving");
-                animator.SetBool("IsWalk", true);
-            }
+        if (Input.GetButtonDown("Jump") && IsGrounded() == false && countJump == true)
+        {
+            chute.SetActive(true);
+            Debug.Log("Para");
+            rb.drag = 5;
+            playerSpeed = 2;
+            countJump = false;
+            Debug.Log(countJump);
+        }
+        /*
+        if (!Input.GetButton("Jump") && IsGrounded())
+        {
+            //Debug.Log("Landed");
+            animator.SetBool("IsJump", false);
+        }
 
-            if (Input.GetButtonDown("Horizontal") && !IsGrounded())
-            {
-                //Debug.Log("Flying");
-                animator.SetBool("IsWalk", false);
-            }
+        if (Input.GetButton("Horizontal") && IsGrounded())
+        {
+            //Debug.Log("Moving");
+            animator.SetBool("IsWalk", true);
+        }
 
-            if (Input.GetButtonUp("Horizontal") && IsGrounded())
-            {
-                //Debug.Log("Stop Moving");
-                animator.SetBool("IsWalk", false);
-                animator.SetBool("IsJump", false);
-            }
+        if (Input.GetButtonDown("Horizontal") && !IsGrounded())
+        {
+            //Debug.Log("Flying");
+            animator.SetBool("IsWalk", false);
+        }
 
-            if (rb.velocity.y <= 0f)
-            {
-                animator.SetBool("IsFall", true);
-                animator.SetBool("IsJump", false);
-            }
+        if (Input.GetButtonUp("Horizontal") && IsGrounded())
+        {
+            //Debug.Log("Stop Moving");
+            animator.SetBool("IsWalk", false);
+            animator.SetBool("IsJump", false);
+        }
 
-            if (IsGrounded())
-            {
-                //Debug.Log("on ground");
-                animator.SetBool("IsFall", false);
-            }
-            */
-            Flip();
+        if (rb.velocity.y <= 0f)
+        {
+            animator.SetBool("IsFall", true);
+            animator.SetBool("IsJump", false);
+        }
+
+        if (IsGrounded())
+        {
+            //Debug.Log("on ground");
+            animator.SetBool("IsFall", false);
+        }
+        */
+        Flip();
         
     }
     private void FixedUpdate()
@@ -104,11 +116,14 @@ public class Player_Movement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("Gr");
         if (collision.tag == "Ground") 
         {
+            chute.SetActive(false);
+            Debug.Log("Ground");
+            rb.drag = 1;
+            playerSpeed = 5;
             countJump = false;
             Debug.Log(countJump);
         }
