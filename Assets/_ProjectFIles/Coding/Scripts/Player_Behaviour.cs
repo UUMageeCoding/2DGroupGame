@@ -18,6 +18,7 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
+    private bool countJump;
 
     private void Awake()
     {
@@ -35,14 +36,9 @@ public class Player_Movement : MonoBehaviour
                 //Debug.Log("Jump");
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 //animator.SetBool("IsJump", true);
+                countJump = true;
+                Debug.Log(countJump);
 
-            }
-
-            if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
-            {
-                //Debug.Log("Jumping");
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                //animator.SetBool("IsJump", true);
             }
 
             /*
@@ -105,6 +101,16 @@ public class Player_Movement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Gr");
+        if (collision.tag == "Ground") 
+        {
+            countJump = false;
+            Debug.Log(countJump);
         }
     }
 }
