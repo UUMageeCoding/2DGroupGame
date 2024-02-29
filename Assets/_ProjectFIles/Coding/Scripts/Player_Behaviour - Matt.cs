@@ -35,6 +35,7 @@ public class Player_Behaviour : MonoBehaviour
 
     private bool countJump;
     private bool chuteUsed;
+    private bool grounded;
 
     [SerializeField] private GameObject chute;
 
@@ -56,7 +57,10 @@ public class Player_Behaviour : MonoBehaviour
     void Update()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
-
+        if (IsGrounded())
+        {
+            grounded = true;
+        }
         //Press Any Button to Spawn----------------------------------------
         if (currentState == "PlayerSpawn" && Input.anyKey)
         {
@@ -69,13 +73,40 @@ public class Player_Behaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        xAxis = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            Debug.Log("Jump");
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            //animator.SetBool("IsJump", true);
+
+
+        }
+
+        if (Input.GetButtonDown("Jump") && IsGrounded() == false)
+        {
+            chute.SetActive(true);
+            Debug.Log("Para");
+            rb.drag = 5;
+            playerSpeed = 5;
+
+        }
+        if (IsGrounded())
+        {
+            chute.SetActive(false);
+            Debug.Log("Ground");
+            rb.drag = 1;
+            playerSpeed = 8f;
+        }
+        /*
         if (canMove)
         {
             rb.velocity = new Vector2(xAxis * playerSpeed, rb.velocity.y);
 
             if (Input.GetButtonDown("Jump"))
             {
-                if (IsGrounded())
+                if (grounded)
                 {
                     Debug.Log("Jump");
                     ChangeState(playerJump);
@@ -92,7 +123,7 @@ public class Player_Behaviour : MonoBehaviour
                 chuteUsed = true;
                 //Debug.Log(countJump);
             }
-            */
+            
             if (rb.velocity.y < 0f)
             {
                 //Debug.Log("Falling");
@@ -110,15 +141,16 @@ public class Player_Behaviour : MonoBehaviour
                 //Debug.Log("Moving");
                 ChangeState(playerRun);
             }
-
+        
             
             Flip();
         }
+        */
     }
 
     private bool IsGrounded()
     {
-        Debug.Log("Ground");
+        //Debug.Log("Ground");
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
@@ -132,6 +164,7 @@ public class Player_Behaviour : MonoBehaviour
             transform.localScale = localScale;
         }
     }
+
     /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
