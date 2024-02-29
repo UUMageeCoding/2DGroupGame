@@ -7,31 +7,95 @@ using UnityEngine.WSA;
 
 public class Player_Behaviour : MonoBehaviour
 {
-    private float horizontal;
-    [SerializeField] private float playerSpeed = 8f;
+    private float xAxis;
+    private float yAxis;
+    [SerializeField] private float playerSpeed = 5f;
     [SerializeField] private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
+    //Animation-----------------------------------------------------------
     private Animator animator;
+    private string currentState;
+    const string playerSpawn = "PlayerSpawn";
+    const string playerIdle = "PlayerIdle";
+    const string playerRun = "PlayerRun"; 
+    const string playerJump = "PlayerJump";
+    const string playerClimb = "PlayerClimb";
+    const string playerFall = "PlayerFall";
+    const string playerDeath = "PlayerDeath";
+    const string playerChute = "PlayerChute";
+    const string playerStick = "PlayerStick";
+    //--------------------------------------------------------------------
+
     private Rigidbody2D rb;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
     private bool countJump;
+    private bool isJumpPressed = false;
     [SerializeField] private GameObject chute;
+
+    public bool canMove;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.drag = 1;
-        playerSpeed = 5;
         animator = GetComponent<Animator>();
         chute.SetActive(false);
+        ChangeState(playerSpawn);
+        canMove = false;    
     }
     void Update()
     {
-            horizontal = Input.GetAxisRaw("Horizontal");
+        xAxis = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            isJumpPressed = true;
+        }
+        //Press Any Button to Spawn----------------------------------------
+        if (currentState == "PlayerSpawn" && Input.anyKey)
+        {
+            canMove = true;
+            ChangeState(playerIdle);
+        }
+        //-----------------------------------------------------------------
+    }
+
+    private void FixedUpdate()
+    {
+        
+        if (canMove)
+        {
+            //Moving-------------------------------------------------------
+            rb.velocity = new Vector2(xAxis * playerSpeed, rb.velocity.y);
+
+            if (IsGrounded())
+            {
+                if (xAxis != 0)
+                {
+                    ChangeState(playerRun);
+                }
+                else
+                {
+                    ChangeState(playerIdle);
+                }
+            }
+            //-------------------------------------------------------------
+
+            //Jumping------------------------------------------------------
+            if (isJumpPressed && IsGrounded())
+            {
+                rb.AddForce(new Vector2(0, jumpingPower));
+                isJumpPressed = false;
+                ChangeState(playerJump);
+            }
+        }
+
+        /*
+
 
         if (Input.GetButtonDown("Jump") && IsGrounded() && countJump == false)
         {
@@ -56,12 +120,12 @@ public class Player_Behaviour : MonoBehaviour
             countJump = true;
         }
 
-        if (IsGrounded() && countJump == true)
+        if (IsGrounded() && countJump == true) 
         {
             Debug.Log("Reset Jump");
             countJump = false;
         }
-        /*
+
         if (!Input.GetButton("Jump") && IsGrounded())
         {
             //Debug.Log("Landed");
@@ -90,20 +154,15 @@ public class Player_Behaviour : MonoBehaviour
         Flip();
         
     }
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(horizontal * playerSpeed, rb.velocity.y);
-    }
 
     private bool IsGrounded()
     {
-        //Debug.Log("On Ground");
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private void Flip()
     {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        if (isFacingRight && xAxis < 0f || !isFacingRight && xAxis > 0f)
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
@@ -122,5 +181,23 @@ public class Player_Behaviour : MonoBehaviour
             countJump = false;
             //Debug.Log(countJump);
         }
+    }
+
+    void ChangeState(string newState)
+    {
+        if (currentState == newState) return;
+        {
+            animator.Play(newState);
+            currentState = newState;
+        }
+    }
+
+    public void LockMove ()
+    {
+        canMove = false;
+    }
+    public void UnlockMove()
+    {
+        canMove = true;
     }
 }
