@@ -4,6 +4,7 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.WSA;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Player_Behaviour : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class Player_Behaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         chute.SetActive(false);
         ChangeState(playerSpawn);
-        canMove = false;    
+        LockMove();  
     }
     void Update()
     {
@@ -58,52 +59,53 @@ public class Player_Behaviour : MonoBehaviour
         //Press Any Button to Spawn----------------------------------------
         if (currentState == "PlayerSpawn" && Input.anyKey)
         {
-            canMove = true;
-            ChangeState(playerIdle);
+            //Debug.Log("Player has spawned");
+            UnlockMove();
         }
         //-----------------------------------------------------------------
     }
 
     private void FixedUpdate()
     {
-        
+        rb.velocity = new Vector2(xAxis * playerSpeed, rb.velocity.y);
+
         if (canMove)
         {
-            //Moving-------------------------------------------------------
-            rb.velocity = new Vector2(xAxis * playerSpeed, rb.velocity.y);
-            Debug.Log("Player has moved");
+            //Moving-------------------------------------------------------           
 
-            if (IsGrounded())
+            if (IsGrounded() && !isJumpPressed)
             {
                 rb.drag = 1;
                 chute.SetActive(false);
 
                 if (xAxis != 0)
                 {
-                    ChangeState(playerRun);
+                    ChangeState(playerIdle);
                 }
                 else
                 {
-                    ChangeState(playerIdle);
+                    ChangeState(playerRun);
                 }
-            }
+            }                    
             //-------------------------------------------------------------
 
             //Jumping------------------------------------------------------
             if (isJumpPressed && IsGrounded())
             {
-                rb.AddForce(new Vector2(0, jumpingPower));
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
                 isJumpPressed = false;
                 ChangeState(playerJump);
-                Debug.Log("Player has Jumped");
+                //Debug.Log("Player has Jumped");
             }
             //Chute--------------------------------------------------------
+            /*
             if (!isJumpPressed && !IsGrounded())
             {
                 chute.SetActive(true);
                 rb.drag = 5;
-                Debug.Log("Player has Chuted");
+                //Debug.Log("Player has Chuted");
             }
+            */
 
             //-------------------------------------------------------------
 
@@ -203,8 +205,9 @@ public class Player_Behaviour : MonoBehaviour
     {
         if (currentState == newState) return;
         {
+            Debug.Log("Current State - " + currentState);
             //animator.Play(newState);
-            //currentState = newState;
+            currentState = newState;
         }
     }
 
