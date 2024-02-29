@@ -71,9 +71,13 @@ public class Player_Behaviour : MonoBehaviour
         {
             //Moving-------------------------------------------------------
             rb.velocity = new Vector2(xAxis * playerSpeed, rb.velocity.y);
+            Debug.Log("Player has moved");
 
             if (IsGrounded())
             {
+                rb.drag = 1;
+                chute.SetActive(false);
+
                 if (xAxis != 0)
                 {
                     ChangeState(playerRun);
@@ -91,7 +95,18 @@ public class Player_Behaviour : MonoBehaviour
                 rb.AddForce(new Vector2(0, jumpingPower));
                 isJumpPressed = false;
                 ChangeState(playerJump);
+                Debug.Log("Player has Jumped");
             }
+            //Chute--------------------------------------------------------
+            if (!isJumpPressed && !IsGrounded())
+            {
+                chute.SetActive(true);
+                rb.drag = 5;
+                Debug.Log("Player has Chuted");
+            }
+
+            //-------------------------------------------------------------
+
         }
 
         /*
@@ -170,7 +185,7 @@ public class Player_Behaviour : MonoBehaviour
             transform.localScale = localScale;
         }
     }
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Ground") 
@@ -182,13 +197,14 @@ public class Player_Behaviour : MonoBehaviour
             //Debug.Log(countJump);
         }
     }
+    */
 
     void ChangeState(string newState)
     {
         if (currentState == newState) return;
         {
-            animator.Play(newState);
-            currentState = newState;
+            //animator.Play(newState);
+            //currentState = newState;
         }
     }
 
