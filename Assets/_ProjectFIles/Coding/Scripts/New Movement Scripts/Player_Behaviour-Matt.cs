@@ -4,35 +4,27 @@ using UnityEngine;
 
 public class Player_Behaviour : MonoBehaviour
 {
-    //Scriptable object which holds all the player's movement parameters. If you don't want to use it
-    //just paste in all the parameters, though you will need to manuly change all references in this script
-
-    //HOW TO: to add the scriptable object, right-click in the project window -> create -> Player Data
-    //Next, drag it into the slot in playerMovement on your player
-
+    //Scriptable object which holds all the player's movement parameters.
     public Player_Behaviour_Data Data;
 
     #region Variables
-    //Components
     public Rigidbody2D RB { get; private set; }
-
-    //Variables control the various actions the player can perform at any time.
-    //These are fields which can are public allowing for other sctipts to read them
-    //but can only be privately written to.
     public bool IsFacingRight { get; private set; }
     public bool IsJumping { get; private set; }
 
-    //Timers (also all fields, could be private and a method returning a bool could be used)
+    //Timers
     public float LastOnGroundTime { get; private set; }
 
     //Jump
     private bool _isJumpCut;
     private bool _isJumpFalling;
-
+    
     private Vector2 _moveInput;
     public float LastPressedJumpTime { get; private set; }
 
-    //Set all of these up in the inspector
+    //Chute
+    private bool _isChuting;
+
     [Header("Checks")]
     [SerializeField] private Transform _groundCheckPoint;
     //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
@@ -88,25 +80,30 @@ public class Player_Behaviour : MonoBehaviour
             if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !IsJumping) //checks if set box overlaps with ground
             {
                 LastOnGroundTime = Data.coyoteTime; //if so sets the lastGrounded to coyoteTime
+                _isChuting = false;
             }
         }
         #endregion
 
         #region JUMP CHECKS
+        if (RB.velocity.y < 0)
+        {
+            _isJumpFalling = true;           
+        }
         if (IsJumping && RB.velocity.y < 0)
         {
             IsJumping = false;
-        }
-      
+        }   
 
         if (LastOnGroundTime > 0 && !IsJumping)
         {
             _isJumpCut = false;
 
             if (!IsJumping)
+            {
                 _isJumpFalling = false;
+            }
         }
-
         //Jump
         if (CanJump() && LastPressedJumpTime > 0)
         {
@@ -114,6 +111,12 @@ public class Player_Behaviour : MonoBehaviour
             _isJumpCut = false;
             _isJumpFalling = false;
             Jump();
+        }
+
+        //Chute
+        if(CanChute() && LastPressedJumpTime > 0)
+        {
+            _isChuting = true; 
         }
         #endregion
 
@@ -216,6 +219,18 @@ public class Player_Behaviour : MonoBehaviour
         }
         #endregion
 
+        #region Chute
+        if (_isChuting)
+        {
+            Debug.Log("chuting");
+            RB.gravityScale = Data.realChuteGravity;
+        }
+        else
+        {
+            RB.gravityScale = Data.gravityScale;
+        }
+        #endregion
+
         //Calculate difference between current velocity and desired velocity
         float speedDif = targetSpeed - RB.velocity.x;
         //Calculate force along x-axis to apply to thr player
@@ -273,13 +288,19 @@ public class Player_Behaviour : MonoBehaviour
 
     private bool CanJump()
     {
-        return LastOnGroundTime > 0 && !IsJumping;
+        return LastOnGroundTime > 0 && !IsJumping && !_isChuting;
     }
 
     private bool CanJumpCut()
     {
         return IsJumping && RB.velocity.y > 0;
     }
+
+    private bool CanChute()
+    {
+        return (_isJumpFalling || IsJumping); 
+    }
+
     #endregion
 
 

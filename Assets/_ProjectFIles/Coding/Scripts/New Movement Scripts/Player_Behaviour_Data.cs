@@ -10,9 +10,9 @@ public class Player_Behaviour_Data : ScriptableObject
 {
     [Header("Gravity")]
     [HideInInspector] public float gravityStrength; //Downwards force (gravity) needed for the desired jumpHeight and jumpTimeToApex.
-    [HideInInspector] public float gravityScale; //Strength of the player's gravity as a multiplier of gravity (set in ProjectSettings/Physics2D).
-                                                 //Also the value the player's rigidbody2D.gravityScale is set to.
     [Space(5)]
+    public float gravityScale; //Strength of the player's gravity as a multiplier of gravity (set in ProjectSettings/Physics2D).
+                                                 //Also the value the player's rigidbody2D.gravityScale is set to.
     public float fallGravityMult; //Multiplier to the player's gravityScale when falling.
     public float maxFallSpeed; //Maximum fall speed (terminal velocity) of the player when falling.
     [Space(5)]
@@ -51,6 +51,12 @@ public class Player_Behaviour_Data : ScriptableObject
 
     [Space(20)]
 
+    [Header("Chute")]
+    public float chuteGravity;
+    [HideInInspector] public float realChuteGravity;
+
+    [Space(20)]
+
     [Header("Assists")]
     [Range(0.01f, 0.5f)] public float coyoteTime; //Grace period after falling off a platform, where you can still jump
     [Range(0.01f, 0.5f)] public float jumpInputBufferTime; //Grace period after pressing jump where a jump will be automatically performed once the requirements (eg. being grounded) are met.
@@ -70,11 +76,13 @@ public class Player_Behaviour_Data : ScriptableObject
         runDeccelAmount = (50 * runDecceleration) / runMaxSpeed;
 
         //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
-        jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
 
+        jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
+        //Calculate Glide Speed
+        realChuteGravity = chuteGravity / 10;
         #region Variable Ranges
         runAcceleration = Mathf.Clamp(runAcceleration, 0.01f, runMaxSpeed);
         runDecceleration = Mathf.Clamp(runDecceleration, 0.01f, runMaxSpeed);
         #endregion
-    }
+    }   
 }
