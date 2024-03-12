@@ -222,7 +222,6 @@ public class Player_Behaviour : MonoBehaviour
         #region Chute
         if (_isChuting)
         {
-            Debug.Log("chuting");
             RB.gravityScale = Data.realChuteGravity;
         }
         else
