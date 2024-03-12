@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player_Behaviour : MonoBehaviour
 {
@@ -91,7 +92,7 @@ public class Player_Behaviour : MonoBehaviour
                 _isChuting = false;
             }
         }
-
+        
         if (Physics2D.OverlapBox(_roofCheckPoint.position,_roofCheckSize,0,_stickyRoofLayer))
         {
             _isStickng = true;
@@ -100,6 +101,7 @@ public class Player_Behaviour : MonoBehaviour
         {
             _isStickng = false;
         }
+        
         #endregion
 
         #region JUMP CHECKS
@@ -140,7 +142,7 @@ public class Player_Behaviour : MonoBehaviour
         #region GRAVITY
         //Higher gravity if we've released the jump input or are falling
 
-        else if (RB.velocity.y < 0 && _moveInput.y < 0)
+         if (RB.velocity.y < 0 && _moveInput.y < 0)
         {
             //Much higher gravity if holding down
             SetGravityScale(Data.gravityScale * Data.fastFallGravityMult);
@@ -163,6 +165,15 @@ public class Player_Behaviour : MonoBehaviour
             SetGravityScale(Data.gravityScale * Data.fallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFallSpeed));
+        }
+         else if (_isChuting)
+        {
+            RB.gravityScale = Data.realChuteGravity;
+            Debug.Log(_isChuting);
+        }
+         else if (_isStickng)
+        {
+            RB.gravityScale = 0;
         }
         else
         {
@@ -233,17 +244,6 @@ public class Player_Behaviour : MonoBehaviour
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
             accelRate = 0;
-        }
-        #endregion
-
-        #region Chute
-        if (_isChuting)
-        {
-            RB.gravityScale = Data.realChuteGravity;
-        }
-        else
-        {
-            RB.gravityScale = Data.gravityScale;
         }
         #endregion
 
