@@ -134,7 +134,6 @@ public class Player_Behaviour : MonoBehaviour
         if (CanJump() && LastPressedJumpTime > 0)
         {
             IsJumping = true;
-            _isJumpCut = false;
             _isJumpFalling = false;
             Jump();
         }
@@ -148,24 +147,33 @@ public class Player_Behaviour : MonoBehaviour
         {
             SetGravityScale(0);
             Debug.Log("Sticking");
-            RB.velocity = Vector2.zero;
+            //RB.velocity = Vector2.zero;
         }
+
+        else if (_isStickng && LastPressedJumpTime == 0)
+        {
+            SetGravityScale(Data.gravityScale * Data.fallGravityMult);            
+            Debug.Log("Stop Sticking");
+
+        }
+
         else if (_isChuting)
         {
             SetGravityScale(Data.realChuteGravity);
-            Debug.Log("Chuting");
+            //Debug.Log("Chuting");
         }
-        else if (RB.velocity.y < 0 && _moveInput.y < 0)
+
+        else if (RB.velocity.y < 0 && !_isJumpCut)
         {
             //Much higher gravity if holding down
-            Debug.Log("Button Hold dowm");
+            //Debug.Log("Button Hold dowm");
             SetGravityScale(Data.gravityScale * Data.fastFallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFastFallSpeed));
         }
         else if (_isJumpCut)
         {
-            Debug.Log("Button Let go");
+            //Debug.Log("Button Let go");
             //Higher gravity if jump button released
             SetGravityScale(Data.gravityScale * Data.jumpCutGravityMult);
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFallSpeed));
@@ -177,7 +185,7 @@ public class Player_Behaviour : MonoBehaviour
         else if (RB.velocity.y < 0)
         {
             //Higher gravity if falling
-            Debug.Log("Falling");
+            // Debug.Log("Falling");
             SetGravityScale(Data.gravityScale * Data.fallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFallSpeed));
@@ -203,8 +211,14 @@ public class Player_Behaviour : MonoBehaviour
 
     public void OnJumpUpInput()
     {
+        //Debug.Log("Key off");
         if (CanJumpCut())
+        {
             _isJumpCut = true;
+           //Debug.Log("Can jump cut");
+
+        }
+
     }
     #endregion
 
