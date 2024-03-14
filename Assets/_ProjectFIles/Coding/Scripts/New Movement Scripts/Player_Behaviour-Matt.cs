@@ -125,7 +125,7 @@ public class Player_Behaviour : MonoBehaviour
             }
         }
         //Chute
-        if(CanChute() && LastPressedJumpTime > 0)
+        if(CanChute() && LastPressedJumpTime > 0 && !_isStickng)
         {
             _isChuting = true; 
         }
@@ -138,6 +138,12 @@ public class Player_Behaviour : MonoBehaviour
             Jump();
         }
 
+        if (_isStickng && LastPressedJumpTime > 0)
+        {
+            _isStickng = false;          
+            Debug.Log("Stop Sticking");
+        }
+
 
         #endregion
 
@@ -147,20 +153,12 @@ public class Player_Behaviour : MonoBehaviour
         {
             SetGravityScale(0);
             Debug.Log("Sticking");
-            //RB.velocity = Vector2.zero;
-        }
-
-        else if (_isStickng && LastPressedJumpTime == 0)
-        {
-            SetGravityScale(Data.gravityScale * Data.fallGravityMult);            
-            Debug.Log("Stop Sticking");
-
         }
 
         else if (_isChuting)
         {
             SetGravityScale(Data.realChuteGravity);
-            //Debug.Log("Chuting");
+            Debug.Log("Chuting");
         }
 
         else if (RB.velocity.y < 0 && !_isJumpCut)
@@ -185,7 +183,7 @@ public class Player_Behaviour : MonoBehaviour
         else if (RB.velocity.y < 0)
         {
             //Higher gravity if falling
-            // Debug.Log("Falling");
+            Debug.Log("Falling");
             SetGravityScale(Data.gravityScale * Data.fallGravityMult);
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFallSpeed));
@@ -335,7 +333,7 @@ public class Player_Behaviour : MonoBehaviour
 
     private bool CanChute()
     {
-        return (_isJumpFalling || IsJumping); 
+        return ((_isJumpFalling || IsJumping) && !_isStickng);
     }
 
     #endregion
