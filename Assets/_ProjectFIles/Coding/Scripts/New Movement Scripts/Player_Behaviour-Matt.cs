@@ -42,6 +42,12 @@ public class Player_Behaviour : MonoBehaviour
     [Header("Layers & Tags")]
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _stickyRoofLayer;
+
+    [Space(5)]
+
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
     #endregion
 
     private void Awake()
@@ -141,7 +147,7 @@ public class Player_Behaviour : MonoBehaviour
         if (_isStickng && LastPressedJumpTime > 0)
         {
             _isStickng = false;          
-            Debug.Log("Stop Sticking");
+            //Debug.Log("Stop Sticking");
         }
 
 
@@ -152,13 +158,13 @@ public class Player_Behaviour : MonoBehaviour
         if (_isStickng)
         {
             SetGravityScale(0);
-            Debug.Log("Sticking");
+            //Debug.Log("Sticking");
         }
 
         else if (_isChuting)
         {
             SetGravityScale(Data.realChuteGravity);
-            Debug.Log("Chuting");
+            //Debug.Log("Chuting");
         }
 
         else if (RB.velocity.y < 0 && !_isJumpCut)
@@ -166,13 +172,15 @@ public class Player_Behaviour : MonoBehaviour
             //Much higher gravity if holding down
             //Debug.Log("Button Hold dowm");
             SetGravityScale(Data.gravityScale * Data.fastFallGravityMult);
+
             //Caps maximum fall speed, so when falling over large distances we don't accelerate to insanely high speeds
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFastFallSpeed));
         }
         else if (_isJumpCut)
-        {
-            //Debug.Log("Button Let go");
+        {            
             //Higher gravity if jump button released
+            //Debug.Log("Button Let go");
+
             SetGravityScale(Data.gravityScale * Data.jumpCutGravityMult);
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -Data.maxFallSpeed));
         }
@@ -209,12 +217,10 @@ public class Player_Behaviour : MonoBehaviour
 
     public void OnJumpUpInput()
     {
-        //Debug.Log("Key off");
         if (CanJumpCut())
         {
             _isJumpCut = true;
            //Debug.Log("Can jump cut");
-
         }
 
     }
