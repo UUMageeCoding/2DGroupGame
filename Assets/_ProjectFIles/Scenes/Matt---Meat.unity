@@ -696,6 +696,7 @@ GameObject:
   - component: {fileID: 819661063}
   - component: {fileID: 819661062}
   - component: {fileID: 819661061}
+  - component: {fileID: 819661065}
   m_Layer: 5
   m_Name: Title_UI
   m_TagString: Untagged
@@ -787,6 +788,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &819661065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819661060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9f3bfd85ad80348a75529e3b45942b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &985595498
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,7 +974,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1499312029}
-  - component: {fileID: 1499312030}
   m_Layer: 0
   m_Name: UIs
   m_TagString: Untagged
@@ -990,20 +1002,6 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1499312030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499312028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9f3bfd85ad80348a75529e3b45942b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startScreen: {fileID: 819661060}
-  pauseMenu: {fileID: 1938018813}
 --- !u!1 &1581030600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,7 +1986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1938018814
 RectTransform:
   m_ObjectHideFlags: 0
