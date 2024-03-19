@@ -125,7 +125,7 @@ public class Player_Behaviour : MonoBehaviour
             }
         }
         //Chute
-        if(CanChute() && LastPressedJumpTime > 0 && !_isStickng)
+        if(CanChute() && LastPressedJumpTime > 0)
         {
             _isChuting = true; 
         }
@@ -323,7 +323,7 @@ public class Player_Behaviour : MonoBehaviour
 
     private bool CanJump()
     {
-        return LastOnGroundTime > 0 && !IsJumping && !_isChuting;
+        return LastOnGroundTime > 0 && !IsJumping && !_isChuting && !_isStickng;
     }
 
     private bool CanJumpCut()
