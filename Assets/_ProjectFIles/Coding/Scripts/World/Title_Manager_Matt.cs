@@ -13,16 +13,15 @@ public class World_Manager_Matt : MonoBehaviour
     #endregion
     void Start()
     {
-        canvas = GetComponent<Canvas>();
-        canvas.enabled = true;
-        activeStart = true; 
+        Debug.Log("Start Timer");
+        StartCoroutine(LoadTime(3,1));
     }
 
     void Update()
     {
         if(Input.anyKey && activeStart == true)
         {
-            Debug.Log("Away Start");
+            //Debug.Log("Away Start");
             activeStart = false;
         }
     }
@@ -31,6 +30,22 @@ public class World_Manager_Matt : MonoBehaviour
         if(activeStart == false)
         {
             canvas.enabled = false;
+        }
+    }
+    private void ActivateScreen()
+    {
+        activeStart = true;
+        canvas = GetComponent<Canvas>();
+        canvas.enabled = true;
+    }
+    private IEnumerator LoadTime (int totalTime, int idTime)
+    {
+        yield return new WaitForSeconds(totalTime);
+        Debug.Log("End Timer");
+
+        if(idTime == 1)
+        {
+            ActivateScreen();
         }
     }
 }
