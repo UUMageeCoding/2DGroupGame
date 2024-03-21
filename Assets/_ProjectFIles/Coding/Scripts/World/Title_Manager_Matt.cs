@@ -7,62 +7,75 @@ public class World_Manager_Matt : MonoBehaviour
     #region Variables
 
     private Canvas canvas;
-    public CanvasGroup canvasGroup;
+    public CanvasGroup group;
 
-    private bool activeStart;
+    [SerializeField] private bool fadeIn = false;
 
-    private int alphaValue;
+    [SerializeField] private bool fadeOut = false;
+
+    private bool activteScreen;
 
     #endregion
     void Start()
     {
         canvas = GetComponent<Canvas>();
-        canvas.enabled = false;
-        //Debug.Log("Start Timer");
-        canvasGroup.alpha = 0f;
-        StartCoroutine(LoadTime(3f, 1));
+        canvas.enabled = true;
+        group.alpha = 0f;
+        fadeIn = true;
+        FadeIn();
     }
 
     void Update()
     {
-        if(Input.anyKey && activeStart == true)
+        if (fadeIn)
         {
-            //Debug.Log("Away Start");
+            FadeIn();
+        }
+        if(Input.anyKey && activteScreen)
+        {
             FadeOut();
-            activeStart = false;
-            canvas.enabled = false;
         }
-    }
-    private void ActivateScreen()
-    {
-
-        activeStart = true;
-        canvas.enabled = true;
-        while (alphaValue != 1)
-        {
-            StartCoroutine(LoadTime(0.2f, 0));
-            canvasGroup.alpha += 0.1f;
-            canvasGroup.alpha = alphaValue;
-        }
+        if(fadeOut)
+        { 
+            FadeOut(); 
+        } 
 
     }
     private void FadeIn()
     {
+        //Debug.Log("Start Fade In");
+
+        if (group.alpha < 1)
+        {
+               group.alpha += Time.deltaTime;
+            //Debug.Log("Fading In");
+
+
+            if (group.alpha >= 1) 
+            {
+                //Debug.Log("Fading Done");
+                canvas.enabled = true;
+                fadeIn = false; 
+                activteScreen = true;
+                
+            }
+        }        
         
     }
     private void FadeOut()
-    { 
-        
-    }
-
-    private IEnumerator LoadTime (float totalTime, int idTime)
     {
-        yield return new WaitForSeconds(totalTime);
-        //Debug.Log("End Timer");
-
-        if(idTime == 1)
+        activteScreen = false;
+        fadeOut = true;
+        Debug.Log("Start Fade Out");
+        if (group.alpha >= 0)
         {
-            ActivateScreen();
+            group.alpha -= Time.deltaTime;
+
+            if (group.alpha == 0)
+            {
+                canvas.enabled = false;
+                fadeOut = false;
+            }
         }
     }
 }
