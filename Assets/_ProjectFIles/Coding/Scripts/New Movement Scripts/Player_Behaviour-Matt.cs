@@ -53,7 +53,7 @@ public class Player_Behaviour : MonoBehaviour
     #endregion
 
     private void Awake()
-    {   
+    {
         RB = GetComponent<Rigidbody2D>();
     }
 
@@ -61,14 +61,13 @@ public class Player_Behaviour : MonoBehaviour
     {
         SetGravityScale(Data.gravityScale);
         IsFacingRight = true;
-        lockMove = true;
+        //lockMovement();
     }
 
     private void Update()
     {
         if (!lockMove)
         {
-
             #region TIMERS
             LastOnGroundTime -= Time.deltaTime;
 
@@ -242,10 +241,12 @@ public class Player_Behaviour : MonoBehaviour
 
     public void lockMovement()
     {
+        Debug.Log("lockmove");
         lockMove = true;
     }
     public void unlockMovement()
     {
+        Debug.Log("unlockmove");
         lockMove = false;
     }
     #endregion

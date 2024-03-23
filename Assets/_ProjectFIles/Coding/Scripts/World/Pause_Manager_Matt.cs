@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 
-public class World_Manager_Matt : MonoBehaviour
+public class Pause_Manager_Matt : MonoBehaviour
 {
-    #region Variables
-
     private Canvas canvas;
+    public Canvas titleCanvas;
+
     public CanvasGroup group;
 
     public GameObject player;
@@ -18,9 +17,10 @@ public class World_Manager_Matt : MonoBehaviour
 
     private bool activteScreen;
 
+    private float alphaMultiplier;
+
     public float spawnTime;
 
-    #endregion
     void Start()
     {
         player = GameObject.Find("Player_Corto");
@@ -28,30 +28,28 @@ public class World_Manager_Matt : MonoBehaviour
         canvas.enabled = true;
         group.alpha = 0f;
         fadeIn = true;
-        FadeIn();
     }
 
     void Update()
     {
-        if (fadeIn)
+        if (titleCanvas.enabled && Input.GetKey(KeyCode.Escape))
         {
-            FadeIn();
+            Debug.Log("Pause");
+            if (fadeIn)
+            {
+                FadeIn();
+            }
+            if (fadeOut)
+            {
+                FadeOut();
+            }
         }
-        if (Input.anyKey && activteScreen)
-        {
-            FadeOut();
-        }
-        if (fadeOut)
-        {
-            FadeOut();
-        }
-
     }
     private void FadeIn()
     {
-        //Debug.Log("Start Fade In");
+        Debug.Log("Start Fade In");
 
-        if (group.alpha < 1)
+        while (group.alpha < 1)
         {
             group.alpha += Time.deltaTime;
             //Debug.Log("Fading In");
@@ -62,6 +60,7 @@ public class World_Manager_Matt : MonoBehaviour
                 //Debug.Log("Fading Done");
                 canvas.enabled = true;
                 fadeIn = false;
+                fadeOut = true;
                 activteScreen = true;
 
             }
@@ -75,12 +74,13 @@ public class World_Manager_Matt : MonoBehaviour
         //Debug.Log("Start Fade Out");
         if (group.alpha >= 0)
         {
-            group.alpha -= Time.deltaTime;
+            group.alpha -= Time.deltaTime * alphaMultiplier;
 
             if (group.alpha <= 0)
             {
                 canvas.enabled = false;
                 fadeOut = false;
+                fadeIn = true;
                 StartCoroutine(ActiavetePlayer());
             }
         }
