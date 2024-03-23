@@ -61,7 +61,7 @@ public class Player_Behaviour : MonoBehaviour
     {
         SetGravityScale(Data.gravityScale);
         IsFacingRight = true;
-        //lockMovement();
+        lockMovement();
     }
 
     private void Update()
@@ -241,12 +241,14 @@ public class Player_Behaviour : MonoBehaviour
 
     public void lockMovement()
     {
-        Debug.Log("lockmove");
+        //Debug.Log("lockmove");
+        _moveInput = Vector2.zero;
         lockMove = true;
     }
     public void unlockMovement()
     {
-        Debug.Log("unlockmove");
+        //Debug.Log("unlockmove");
+        _moveInput = Vector2.zero;
         lockMove = false;
     }
     #endregion

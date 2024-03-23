@@ -8,6 +8,8 @@ public class World_Manager_Matt : MonoBehaviour
     #region Variables
 
     private Canvas canvas;
+    public Canvas pauseCanvas;
+
     public CanvasGroup group;
 
     public GameObject player;
@@ -23,6 +25,7 @@ public class World_Manager_Matt : MonoBehaviour
     #endregion
     void Start()
     {
+        pauseCanvas.enabled = false;
         player = GameObject.Find("Player_Corto");
         canvas = GetComponent<Canvas>();
         canvas.enabled = true;
@@ -79,7 +82,6 @@ public class World_Manager_Matt : MonoBehaviour
 
             if (group.alpha <= 0)
             {
-                canvas.enabled = false;
                 fadeOut = false;
                 StartCoroutine(ActiavetePlayer());
             }
@@ -90,6 +92,8 @@ public class World_Manager_Matt : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnTime);
         //Debug.Log("Wait Done");
+        canvas.enabled = false;
+        pauseCanvas.enabled = true;
         player.GetComponent<Player_Behaviour>().unlockMovement();
     }
 }

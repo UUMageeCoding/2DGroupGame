@@ -11,66 +11,75 @@ public class Pause_Manager_Matt : MonoBehaviour
 
     public GameObject player;
 
-    [SerializeField] private bool fadeIn = false;
+    private bool fadeIn = false;
 
-    [SerializeField] private bool fadeOut = false;
+    private bool fadeOut = false;
 
-    private bool activteScreen;
+    private bool fadeInLoop = false;
 
-    private float alphaMultiplier;
+    private bool fadeOutLoop = false;
 
-    public float spawnTime;
+    [SerializeField] private float alphaMultiplier;
 
     void Start()
     {
+        //Debug.Log("Start Pause");
         player = GameObject.Find("Player_Corto");
         canvas = GetComponent<Canvas>();
-        canvas.enabled = true;
         group.alpha = 0f;
         fadeIn = true;
     }
 
     void Update()
     {
-        if (titleCanvas.enabled && Input.GetKey(KeyCode.Escape))
+        if (!titleCanvas.enabled && Input.GetKey(KeyCode.Escape))
         {
-            Debug.Log("Pause");
+
+            //Debug.Log("Pause");
             if (fadeIn)
             {
-                FadeIn();
+                fadeInLoop = true;
             }
             if (fadeOut)
             {
-                FadeOut();
+                fadeOutLoop = true;
             }
+        }
+        if (fadeInLoop)
+        {
+            FadeIn();
+        }
+        if (fadeOutLoop)
+        {
+            FadeOut();
         }
     }
     private void FadeIn()
     {
-        Debug.Log("Start Fade In");
+        canvas.enabled = true;
+        fadeIn = true;
+        player.GetComponent<Player_Behaviour>().lockMovement();
 
-        while (group.alpha < 1)
+        //Debug.Log("Start Fade In");
+        if (group.alpha < 1)
         {
-            group.alpha += Time.deltaTime;
+            group.alpha += Time.deltaTime * alphaMultiplier;
             //Debug.Log("Fading In");
-
-
             if (group.alpha >= 1)
             {
                 //Debug.Log("Fading Done");
-                canvas.enabled = true;
                 fadeIn = false;
                 fadeOut = true;
-                activteScreen = true;
-
+                fadeInLoop = false;
             }
         }
 
     }
     private void FadeOut()
     {
-        activteScreen = false;
         fadeOut = true;
+        player.GetComponent<Player_Behaviour>().unlockMovement();
+
         //Debug.Log("Start Fade Out");
         if (group.alpha >= 0)
         {
@@ -79,17 +88,11 @@ public class Pause_Manager_Matt : MonoBehaviour
             if (group.alpha <= 0)
             {
                 canvas.enabled = false;
-                fadeOut = false;
                 fadeIn = true;
-                StartCoroutine(ActiavetePlayer());
+                fadeOut = false;
+                fadeOutLoop = false;
             }
         }
     }
 
-    IEnumerator ActiavetePlayer()
-    {
-        yield return new WaitForSeconds(spawnTime);
-        //Debug.Log("Wait Done");
-        player.GetComponent<Player_Behaviour>().unlockMovement();
-    }
 }

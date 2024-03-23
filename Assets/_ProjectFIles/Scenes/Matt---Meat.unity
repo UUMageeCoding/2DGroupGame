@@ -907,7 +907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &819661061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9f3bfd85ad80348a75529e3b45942b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseCanvas: {fileID: 1938018817}
   group: {fileID: 1499312030}
   player: {fileID: 1701752174}
   fadeIn: 0
@@ -2311,9 +2312,7 @@ MonoBehaviour:
   titleCanvas: {fileID: 819661063}
   group: {fileID: 1499312030}
   player: {fileID: 1701752174}
-  fadeIn: 0
-  fadeOut: 0
-  spawnTime: 0
+  alphaMultiplier: 1
 --- !u!1 &1999003990
 GameObject:
   m_ObjectHideFlags: 0
