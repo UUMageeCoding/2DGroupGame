@@ -75,7 +75,13 @@ public class World_Manager_Matt : MonoBehaviour
             {
                 canvas.enabled = false;
                 fadeOut = false;
+
             }
         }
+    }
+
+    IEnumerator ActiavetPlayer()
+    {
+        yield return new WaitForSeconds(3f)
     }
 }
